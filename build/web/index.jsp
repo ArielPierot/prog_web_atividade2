@@ -29,11 +29,11 @@
 
 <body class="">
     <!-- Modal de create -->
-    <div class="modal fade" id ="createModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Editar disciplina</h5>
+              <h5 class="modal-title">Criar disciplina</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -234,7 +234,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-success pull-right">
+                    <button class="btn btn-success pull-right" data-toggle="modal" data-target="#createModal">
                         <i class="material-icons">save</i> Criar novo
                      </button>
                 </div>
