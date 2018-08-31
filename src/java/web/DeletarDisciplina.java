@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import static web.ListarDisciplinas.DATABASE_URL;
 
 /**
  *
@@ -47,7 +48,8 @@ public class DeletarDisciplina extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         
         Connection connection = null;
-        PreparedStatement ps = null;
+        Statement statement = null;
+//        PreparedStatement ps = null;
         
         int i = 0;
         
@@ -59,17 +61,24 @@ public class DeletarDisciplina extends HttpServlet {
             Class.forName(JDBC_DRIVER); // carrega classe de driver do banco de dados
                 // estabelece conexao com o banco de dados
          
-            connection = DriverManager.getConnection(DATABASE_URL, "proesc", "proesc");
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
              // cria Statement para consultar banco de dados
+             
+            statement = connection.createStatement();
+            statement.executeQuery("USE lista2;");
+            
+            
+            String query = "DELETE FROM lista2.disciplinas WHERE disciplinas.id = "+ id +" ";
                         
-            ps = connection.prepareStatement("DELETE FROM lista2.disciplinas WHERE disciplinas.id = ?");
-            ps.setString(1, id);
+//            ps = connection.prepareStatement("DELETE FROM lista2.disciplinas WHERE disciplinas.id = ?");
+//            ps.setString(1, id);
             
             try {
-                i = ps.executeUpdate();
+//                i = ps.executeUpdate();
+                i = statement.executeUpdate(query);
                 connection.commit();
             } finally {
-                ps.close();
+                statement.close();
                 
                 if(i!=0)
                 {

@@ -53,7 +53,7 @@ public class ListarDisciplinas extends HttpServlet {
             Class.forName(JDBC_DRIVER); // carrega classe de driver do banco de dados
                 // estabelece conexao com o banco de dados
          
-            connection = DriverManager.getConnection(DATABASE_URL, "proesc", "proesc");
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
              // cria Statement para consultar banco de dados
             statement = connection.createStatement();
             

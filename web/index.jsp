@@ -28,6 +28,126 @@
 </head>
 
 <body class="">
+    <!-- Modal de create -->
+    <div class="modal fade" id ="createModal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar disciplina</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Código</label>
+                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Nome</label>
+                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">N. Créditos</label>
+                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pre_requisito_id_1">Pré-requisito (1)</label>
+                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_1">
+                              <option value=null>- selecione -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pre_requisito_id_2">Pré-requisito (2)</label>
+                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_2">
+                              <option value=null>- selecione -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Criar disciplina</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Modal de create -->
+    
+    <!-- Modal de edição -->
+    <div class="modal fade" id ="editModal" tabindex="-1" role="dialog" style="display: none;">
+        <input type="hidden" id="edit_id" name="edit_id">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar disciplina</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Código</label>
+                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Nome</label>
+                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">N. Créditos</label>
+                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pre_requisito_id_1">Pré-requisito (1)</label>
+                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_1">
+                              <option value=null>- selecione -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pre_requisito_id_2">Pré-requisito (2)</label>
+                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_2">
+                              <option value=null>- selecione -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Salvar alterações</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Modal de edição -->  
+    
+    
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.jpg">
       <!--
@@ -54,7 +174,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Table List</a>
+            <a class="navbar-brand" href="#pablo">Lista de disciplinas</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -112,21 +232,31 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Lista de disciplinas</h4>
-                  <p class="card-category"> Lista de disciplinas para incluir, alterar ou excluir</p>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success pull-right">
+                        <i class="material-icons">save</i> Criar novo
+                     </button>
                 </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <span id="listagem"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-12" id="alerta"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Lista de disciplinas</h4>
+                    <p class="card-category"> Lista de disciplinas para incluir, alterar ou excluir</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <span id="listagem"></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
       <footer class="footer">
@@ -182,7 +312,7 @@
   <script type="text/javascript">
  
   $( document ).ready(function() {
-      $("#listagem").val("");
+      $("#listagem").empty();
       $.fn.carregarDados();
   });
   
@@ -231,7 +361,7 @@
                                         <td>' + valor.pre_requisito_1 + '</td>\
                                         <td>' + valor.pre_requisito_2 + '</td>\
                                         <td>\
-                                        <button class="btn btn-primary btn-fab btn-fab-mini btn-round" alt="Editar" value='+ valor.id +'><i class="material-icons">edit</i></button>\
+                                        <button class="btn btn-primary btn-fab btn-fab-mini btn-round" onClick="return editarDisciplina(this)" data-toggle="modal" data-target="#editModal" alt="Editar" value='+ valor.id +'><i class="material-icons">edit</i></button>\
                                         <button class="btn btn-primary btn-fab btn-fab-mini btn-round" onClick="return deletarDisciplina(this)" alt="Deletar" value='+ valor.id +'><i class="material-icons">delete</i></button>\
                                         </td>\
                                     </tr>';
@@ -250,6 +380,8 @@
       var formData = {
         'id': current.value
       };
+      
+      $("#alerta").empty();
             
       $.ajax({
         url:"DeletarDisciplina",
@@ -260,21 +392,34 @@
         cache: false,
         timeout: 30000,
         complete: function(response){
-            console.log(response);
             obj = eval('(' + response.responseText + ')');
             
-            if(obj.deletado === 'true')
+            if(obj.deletado !== 'false')
             {
                 location.reload();
             }
             else
             {
-                console.log('error');
+                var alerta = '<div class="alert alert-danger alert-dismissible fade show" role="alert">\
+                                Há vínculo dessa disciplina em outra tabela e não foi possível excluir.\
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                                    <span aria-hidden="true">&times;</span>\
+                                  </button>\
+                              </div>';
+            
+                $("#alerta").append(alerta);
             }     
         }
     });
         
   };
+  
+  function editarDisciplina(current){
+        
+      $("#edit_id").val(current.value);
+      
+      console.log($("#edit_id").val());
+  }
   </script>  
 </body>
 
