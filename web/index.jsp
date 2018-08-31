@@ -43,19 +43,19 @@
                     <div class="col-md-2">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Código</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                          <input type="email" class="form-control" id="create_codigo_id">
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Nome</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                          <input type="email" class="form-control" id="create_nome">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">N. Créditos</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                          <input type="email" class="form-control" id="create_n_creditos">
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="pre_requisito_id_1">Pré-requisito (1)</label>
-                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_1">
+                            <select class="form-control pre_requisito" data-style="btn btn-link" id="create_pre_requisito_id_1">
                               <option value=null>- selecione -</option>
                             </select>
                         </div>
@@ -71,7 +71,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="pre_requisito_id_2">Pré-requisito (2)</label>
-                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_2">
+                            <select class="form-control pre_requisito" data-style="btn btn-link" id="create_pre_requisito_id_2">
                               <option value=null>- selecione -</option>
                             </select>
                         </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Criar disciplina</button>
+              <button type="button" class="btn btn-primary" id="save_create">Criar disciplina</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
           </div>
@@ -103,19 +103,19 @@
                     <div class="col-md-2">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Código</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                          <input type="email" class="form-control" id="edit_codigo_id">
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Nome</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                          <input type="email" class="form-control" id="edit_nome">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">N. Créditos</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
+                          <input type="email" class="form-control" id="edit_n_creditos">
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="pre_requisito_id_1">Pré-requisito (1)</label>
-                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_1">
+                            <select class="form-control pre_requisito" data-style="btn btn-link" id="edit_pre_requisito_id_1">
                               <option value=null>- selecione -</option>
                             </select>
                         </div>
@@ -131,7 +131,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="pre_requisito_id_2">Pré-requisito (2)</label>
-                            <select class="form-control" data-style="btn btn-link" id="pre_requisito_id_2">
+                            <select class="form-control pre_requisito" data-style="btn btn-link" id="edit_pre_requisito_id_2">
                               <option value=null>- selecione -</option>
                             </select>
                         </div>
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Salvar alterações</button>
+              <button type="button" class="btn btn-primary" id="save_edit">Salvar alterações</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
           </div>
@@ -314,6 +314,7 @@
   $( document ).ready(function() {
       $("#listagem").empty();
       $.fn.carregarDados();
+      $.fn.carregarPreRequisitos();
   });
   
   $.fn.carregarDados = function(){
@@ -420,6 +421,31 @@
       
       console.log($("#edit_id").val());
   }
+  
+  $.fn.carregarPreRequisitos = function(){
+      $.ajax({
+        url:"ListarDisciplinas",
+        type: 'GET',
+        dataType: "json",
+        async: false,
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            return true;
+        },
+        success: function(response){
+            
+            $(response).each(function(index, valor) {
+                $(".pre_requisito").append($('<option>', {
+                    value: valor.id,
+                    text: valor.nome.toUpperCase()
+                }));
+            });
+        }
+        
+    });
+  }
+    
   </script>  
 </body>
 
