@@ -33,7 +33,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Criar disciplina</h5>
+              <h5 class="modal-title">Criar currículo</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -42,44 +42,31 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                          <label for="exampleFormControlInput1">Código</label>
-                          <input type="text" class="form-control" id="create_codigo_id">
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Nome</label>
-                          <input type="text" class="form-control" id="create_nome">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">N. Créditos</label>
-                          <input type="text" class="form-control" id="create_n_creditos">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="pre_requisito_id_1">Pré-requisito (1)</label>
-                            <select class="form-control pre_requisito" data-style="btn btn-link" id="create_pre_requisito_id_1">
-                              <option value=null>- selecione -</option>
-                            </select>
+                          <label for="exampleFormControlInput1">Período</label>
+                          <input type="text" class="form-control" id="create_n_periodo">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="pre_requisito_id_2">Pré-requisito (2)</label>
-                            <select class="form-control pre_requisito" data-style="btn btn-link" id="create_pre_requisito_id_2">
+                            <label for="create_disciplina_id">Disciplina</label>
+                            <select class="form-control disciplinas" data-style="btn btn-link" id="create_disciplina_id">
                               <option value=null>- selecione -</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Disciplina Tipo</label>
+                          <select class="form-control" data-style="btn btn-link" id="create_disciplina_tipo">
+                              <option value="O">O</option>
+                              <option value="C">C</option>
+                           </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="create_model" onClick="return criarDisciplina()">Criar disciplina</button>
+              <button type="button" class="btn btn-primary" id="create_model" onClick="return criarCurriculo()">Criar currículo</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
           </div>
@@ -93,7 +80,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Editar disciplina</h5>
+              <h5 class="modal-title">Editar currículo</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -102,44 +89,31 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                          <label for="exampleFormControlInput1">Código</label>
-                          <input type="text" class="form-control" id="edit_codigo_id">
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Nome</label>
-                          <input type="text" class="form-control" id="edit_nome">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">N. Créditos</label>
-                          <input type="text" class="form-control" id="edit_n_creditos">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="pre_requisito_id_1">Pré-requisito (1)</label>
-                            <select class="form-control pre_requisito" data-style="btn btn-link" id="edit_pre_requisito_id_1">
-                              <option value=null>- selecione -</option>
-                            </select>
+                          <label for="exampleFormControlInput1">Período</label>
+                          <input type="text" class="form-control" id="edit_n_periodo">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="pre_requisito_id_2">Pré-requisito (2)</label>
-                            <select class="form-control pre_requisito" data-style="btn btn-link" id="edit_pre_requisito_id_2">
+                            <label for="create_disciplina_id">Disciplina</label>
+                            <select class="form-control disciplinas" data-style="btn btn-link" id="edit_disciplina_id">
                               <option value=null>- selecione -</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Disciplina Tipo</label>
+                          <select class="form-control" data-style="btn btn-link" id="edit_tipo_disciplina">
+                              <option value="O">O</option>
+                              <option value="C">C</option>
+                           </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="save_edit" onClick="return updateDisciplina()">Salvar alterações</button>
+              <button type="button" class="btn btn-primary" id="save_edit" onClick="return updateCurriculo()">Salvar alterações</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
           </div>
@@ -160,13 +134,13 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active ">
+          <li class="nav-item ">
             <a class="nav-link" href="/AtividadeLista2/">
               <i class="material-icons">content_paste</i>
               <p>Disciplinas</p>
             </a>
           </li>
-          <li class="nav-item  ">
+          <li class="nav-item active ">
             <a class="nav-link" href="/AtividadeLista2/curriculos.jsp">
               <i class="material-icons">content_paste</i>
               <p>Currículos</p>
@@ -180,7 +154,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Lista de disciplinas</a>
+            <a class="navbar-brand" href="#pablo">Lista de currículos</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -252,8 +226,8 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header card-header-primary">
-                    <h4 class="card-title ">Lista de disciplinas</h4>
-                    <p class="card-category"> Lista de disciplinas para incluir, alterar ou excluir</p>
+                    <h4 class="card-title ">Lista de currículos</h4>
+                    <p class="card-category"> Lista de currículos para incluir, alterar ou excluir</p>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -320,7 +294,7 @@
   $( document ).ready(function() {
       $("#listagem").empty();
       $.fn.carregarDados();
-      $.fn.carregarPreRequisitos();
+      $.fn.carregarDisciplinas();
   });
   
     $(document).on('blur', "input[type=text]", function () {
@@ -331,7 +305,7 @@
    
   $.fn.carregarDados = function(){
       $.ajax({
-        url:"ListarDisciplinas",
+        url:"ListarCurriculos",
         type: 'GET',
         dataType: "json",
         async: false,
@@ -344,19 +318,16 @@
             var tabela = '<table class="table">\
                       <thead class=" text-primary">\
                         <th>\
-                          Código\
+                          Curso\
                         </th>\
                         <th>\
-                          Nome\
+                          Período\
                         </th>\
                         <th>\
-                          Créditos\
+                          Disciplina\
                         </th>\
                         <th>\
-                          Pré-requisito (1)\
-                        </th>\
-                        <th>\
-                          Pré-requisito (2)\
+                          Disciplina Tipo\
                         </th>\
                         <th>\
                           Ações\
@@ -368,14 +339,13 @@
             $(response).each(function(index, valor) {
                 
                     tabela += '<tr>\
-                                        <td>' + valor.codigo + '</td>\
-                                        <td>' + valor.nome + '</td>\
-                                        <td>' + valor.n_creditos + '</td>\
-                                        <td>' + valor.pre_requisito_1 + '</td>\
-                                        <td>' + valor.pre_requisito_2 + '</td>\
+                                        <td>' + valor.curso + '</td>\
+                                        <td>' + valor.n_periodo + '</td>\
+                                        <td>' + valor.disciplina + '</td>\
+                                        <td>' + valor.tipo_disciplina + '</td>\
                                         <td>\
-                                        <button class="btn btn-primary btn-fab btn-fab-mini btn-round" onClick="return editarDisciplina(this)" data-toggle="modal" data-target="#editModal" alt="Editar" value='+ valor.id +'><i class="material-icons">edit</i></button>\
-                                        <button class="btn btn-primary btn-fab btn-fab-mini btn-round" onClick="return deletarDisciplina(this)" alt="Deletar" value='+ valor.id +'><i class="material-icons">delete</i></button>\
+                                        <button class="btn btn-primary btn-fab btn-fab-mini btn-round" onClick="return editarCurriculo(this)" data-toggle="modal" data-target="#editModal" alt="Editar" value='+ valor.id +'><i class="material-icons">edit</i></button>\
+                                        <button class="btn btn-primary btn-fab btn-fab-mini btn-round" onClick="return deletarCurriculo(this)" alt="Deletar" value='+ valor.id +'><i class="material-icons">delete</i></button>\
                                         </td>\
                                     </tr>';
             });
@@ -388,20 +358,18 @@
     });
   };
   
-    function criarDisciplina(){
+    function criarCurriculo(){
         
       $("#alerta").empty();
         
       var formData = {
-        'codigo': $("#create_codigo_id").val(),
-        'nome': $("#create_nome").val(),
-        'n_creditos': $("#create_n_creditos").val(),
-        'pre_req_1': $("#create_pre_requisito_id_1 option:selected").val(),
-        'pre_req_2': $("#create_pre_requisito_id_2 option:selected").val()
+        'n_periodo': $("#create_n_periodo").val(),
+        'disciplina_id': $("#create_disciplina_id option:selected").val(),
+        'disciplina_tipo': $("#create_disciplina_tipo option:selected").val()
       };
       
         $.ajax({
-          url:"CriarDisciplina",
+          url:"CriarCurriculo",
           type: 'POST',
           data: formData,
           dataType: "json",
@@ -419,7 +387,7 @@
                 else
                 {
                     var alerta = '<div class="alert alert-danger alert-dismissible fade show" role="alert">\
-                                    Não foi possível criar essa disciplina.\
+                                    Não foi possível criar esse currículo.\
                                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                                         <span aria-hidden="true">&times;</span>\
                                       </button>\
@@ -431,21 +399,19 @@
       });
     };
     
-    function updateDisciplina(){
+    function updateCurriculo(){
         
       $("#alerta").empty();
         
       var formData = {
         'id': $("#edit_id").val(),
-        'codigo': $("#edit_codigo_id").val(),
-        'nome': $("#edit_nome").val(),
-        'n_creditos': $("#edit_n_creditos").val(),
-        'pre_req_1': $("#edit_pre_requisito_id_1 option:selected").val(),
-        'pre_req_2': $("#edit_pre_requisito_id_2 option:selected").val()
+        'n_periodo': $("#edit_n_periodo").val(),
+        'disciplina_id': $("#edit_disciplina_id option:selected").val(),
+        'tipo_disciplina': $("#edit_tipo_disciplina option:selected").val()
       };
       
         $.ajax({
-          url:"UpdateDisciplina",
+          url:"UpdateCurriculo",
           type: 'POST',
           data: formData,
           dataType: "json",
@@ -464,7 +430,7 @@
                 else
                 {
                     var alerta = '<div class="alert alert-danger alert-dismissible fade show" role="alert">\
-                                    Não foi possível criar essa disciplina.\
+                                    Não foi possível alterar esse currículo.\
                                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                                         <span aria-hidden="true">&times;</span>\
                                       </button>\
@@ -476,7 +442,7 @@
       });
     };
   
-    function deletarDisciplina(current){
+    function deletarCurriculo(current){
         
       var formData = {
         'id': current.value
@@ -485,7 +451,7 @@
       $("#alerta").empty();
             
       $.ajax({
-        url:"DeletarDisciplina",
+        url:"DeletarCurriculo",
         type: 'POST',
         data: formData,
         dataType: "json",
@@ -502,7 +468,7 @@
             else
             {
                 var alerta = '<div class="alert alert-danger alert-dismissible fade show" role="alert">\
-                                Há vínculo dessa disciplina em outra tabela e não foi possível excluir.\
+                                Há vínculo desse currículo em outra tabela.\
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                                     <span aria-hidden="true">&times;</span>\
                                   </button>\
@@ -515,20 +481,22 @@
         
   };
   
-  function editarDisciplina(current){
+  function editarCurriculo(current){
         
       $("#edit_id").empty();
       $("#edit_id").val(current.value);
       
-      $('#edit_pre_requisito_id_1 option').attr("selected", false);
-      $('#edit_pre_requisito_id_2 option').attr("selected", false);
+      $('#edit_tipo_disciplina option').attr("selected", false);
+      $('#edit_disciplina_id option').attr("selected", false);
       
       var formData = {
         'id': current.value
       };
       
+      console.log(current.value);
+      
       $.ajax({
-        url:"BuscarDisciplina",
+        url:"BuscarCurriculo",
         type: 'GET',
         data: formData,
         dataType: "json",
@@ -540,18 +508,16 @@
         },
         success: function(response){
             console.log(response);
-            $("#edit_codigo_id").val(response[0].codigo);
-            $("#edit_nome").val(response[0].nome);
-            $("#edit_n_creditos").val(response[0].n_creditos);
-            $('#edit_pre_requisito_id_1 option[value="'+ response[0].pre_req_1 +'"]').attr("selected", "selected");
-            $('#edit_pre_requisito_id_2 option[value="'+ response[0].pre_req_2 +'"]').attr("selected", "selected");
+            $("#edit_n_periodo").val(response[0].n_periodo);
+            $('#edit_tipo_disciplina option[value="'+ response[0].tipo_disciplina +'"]').attr("selected", "selected");
+            $('#edit_disciplina_id option[value="'+ response[0].disciplina_id +'"]').attr("selected", "selected");
         }
             
         });
       
   }
   
-  $.fn.carregarPreRequisitos = function(){
+  $.fn.carregarDisciplinas = function(){
       $.ajax({
         url:"ListarDisciplinas",
         type: 'GET',
@@ -565,7 +531,7 @@
         success: function(response){
             
             $(response).each(function(index, valor) {
-                $(".pre_requisito").append($('<option>', {
+                $(".disciplinas").append($('<option>', {
                     value: valor.id,
                     text: valor.nome.toUpperCase()
                 }));

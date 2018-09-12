@@ -161,9 +161,15 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active ">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="/AtividadeLista2/">
               <i class="material-icons">content_paste</i>
               <p>Disciplinas</p>
+            </a>
+          </li>
+          <li class="nav-item  ">
+            <a class="nav-link" href="/AtividadeLista2/curriculos.jsp">
+              <i class="material-icons">content_paste</i>
+              <p>Currículos</p>
             </a>
           </li>
         </ul>

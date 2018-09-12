@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.Disciplinas;
+package web.Curriculos;
 
+import web.Disciplinas.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -21,14 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static web.Disciplinas.ListarDisciplinas.DATABASE_URL;
 
 /**
  *
  * @author Ariel Pierot
  */
-@WebServlet(name = "UpdateDisciplina", urlPatterns = {"/UpdateDisciplina"})
-public class UpdateDisciplina extends HttpServlet {
+@WebServlet(name = "BuscarCurriculo", urlPatterns = {"/BuscarCurriculo"})
+public class BuscarCurriculo extends HttpServlet {
     
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
     static final String DATABASE_URL = "jdbc:mysql://localhost:3306/lista2?autoReconnect=true&useSSL=false&serverTimezone=UTC";
@@ -49,54 +48,63 @@ public class UpdateDisciplina extends HttpServlet {
         
         Connection connection = null;
         Statement statement = null;
-//        PreparedStatement ps = null;
         
-        int i = 0;
-        
-        String id = request.getParameter("id");
-        String codigo = request.getParameter("codigo");
-        String nome = request.getParameter("nome");
-        String n_creditos = request.getParameter("n_creditos");
-        String pre_req_1 = request.getParameter("pre_req_1");
-        String pre_req_2 = request.getParameter("pre_req_2");
-        PrintWriter out = response.getWriter();
-        
-        try { 
+        try (PrintWriter out = response.getWriter()) { 
             
             Class.forName(JDBC_DRIVER); // carrega classe de driver do banco de dados
                 // estabelece conexao com o banco de dados
+                
+            String id = request.getParameter("id");
          
             connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
              // cria Statement para consultar banco de dados
-             
             statement = connection.createStatement();
+            
+            // consulta o banco de dados 
             statement.executeQuery("USE lista2;");
-            
-            
-            String query = "UPDATE lista2.disciplinas SET codigo = '"+ codigo +"', nome = '"+ nome +"', n_creditos = "+ n_creditos +", pre_req_1 = "+ pre_req_1 +", pre_req_2 = "+ pre_req_2 +" WHERE id = "+ id + "";
-            
-            //out.println(query);
+            ResultSet resultSet = statement.executeQuery("SELECT periodos.id, periodos.n_periodo, periodos.disciplina_id, periodos.tipo_disciplina FROM periodos "
+                    + "WHERE periodos.id = " + id + " ORDER BY periodos.id LIMIT 1 ;");
+            JSONArray jArray = new JSONArray();
+            JSONObject jsonObject = null;
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnCount = rsmd.getColumnCount();
                         
-//            ps = connection.prepareStatement("DELETE FROM lista2.disciplinas WHERE disciplinas.id = ?");
-//            ps.setString(1, id);
-            
-            try {
-//                i = ps.executeUpdate();
-                i = statement.executeUpdate(query);
-                connection.commit();
-            } finally {
-                statement.close();
-                
-                if(i!=0)
+            while(resultSet.next())
+            {
+                jsonObject = new JSONObject();
+                for (int index = 1; index <= columnCount; index++) 
                 {
-                    out.print("{'alterado' : 'true' }");
+                    String column = rsmd.getColumnLabel(index);
+                    Object value = resultSet.getObject(column);
+                    if (value == null) 
+                    {
+                        jsonObject.put(column, "");
+                    } else if (value instanceof Integer) {
+                        jsonObject.put(column, (Integer) value);
+                    } else if (value instanceof String) {
+                        jsonObject.put(column, (String) value);                
+                    } else if (value instanceof Boolean) {
+                        jsonObject.put(column, (Boolean) value);           
+                    } else if (value instanceof Long) {
+                        jsonObject.put(column, (Long) value);                
+                    } else if (value instanceof Double) {
+                        jsonObject.put(column, (Double) value);                
+                    } else if (value instanceof Float) {
+                        jsonObject.put(column, (Float) value);                
+                    } else if (value instanceof Byte) {
+                        jsonObject.put(column, (Byte) value);
+                    } else if (value instanceof byte[]) {
+                        jsonObject.put(column, (byte[]) value);                
+                    } else {
+                        throw new IllegalArgumentException("Unmappable object type: " + value.getClass());
+                    }
                 }
-                else if(i==0)
-                {
-                    out.print("{'alterado' : 'false' }");
-                }
-            }
+                jArray.put(jsonObject);
+            };
             
+            out.print(jArray);       
+            
+            out.close();
         }
         catch (SQLException | ClassNotFoundException sqlException)                                
         {                                                                  
@@ -108,8 +116,8 @@ public class UpdateDisciplina extends HttpServlet {
         finally // assegura que a instruÃ§Ã£o e conexÃ£o sÃ£o fechadas adequadamente
         {                                                             
            try                                                       
-           {  
-              out.close();
+           {                                                          
+              statement.close();                                      
               connection.close();                                     
            } // fim do try
            catch ( Exception exception )                              

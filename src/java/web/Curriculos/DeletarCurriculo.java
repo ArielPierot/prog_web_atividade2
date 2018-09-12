@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.Disciplinas;
+package web.Curriculos;
 
+import web.Disciplinas.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -21,14 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static web.Disciplinas.ListarDisciplinas.DATABASE_URL;
+import static web.Curriculos.ListarCurriculos.DATABASE_URL;
 
 /**
  *
  * @author Ariel Pierot
  */
-@WebServlet(name = "UpdateDisciplina", urlPatterns = {"/UpdateDisciplina"})
-public class UpdateDisciplina extends HttpServlet {
+@WebServlet(name = "DeletarCurriculo", urlPatterns = {"/DeletarCurriculo"})
+public class DeletarCurriculo extends HttpServlet {
     
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
     static final String DATABASE_URL = "jdbc:mysql://localhost:3306/lista2?autoReconnect=true&useSSL=false&serverTimezone=UTC";
@@ -54,11 +55,6 @@ public class UpdateDisciplina extends HttpServlet {
         int i = 0;
         
         String id = request.getParameter("id");
-        String codigo = request.getParameter("codigo");
-        String nome = request.getParameter("nome");
-        String n_creditos = request.getParameter("n_creditos");
-        String pre_req_1 = request.getParameter("pre_req_1");
-        String pre_req_2 = request.getParameter("pre_req_2");
         PrintWriter out = response.getWriter();
         
         try { 
@@ -73,9 +69,7 @@ public class UpdateDisciplina extends HttpServlet {
             statement.executeQuery("USE lista2;");
             
             
-            String query = "UPDATE lista2.disciplinas SET codigo = '"+ codigo +"', nome = '"+ nome +"', n_creditos = "+ n_creditos +", pre_req_1 = "+ pre_req_1 +", pre_req_2 = "+ pre_req_2 +" WHERE id = "+ id + "";
-            
-            //out.println(query);
+            String query = "DELETE FROM lista2.periodos WHERE periodos.id = "+ id +" ";
                         
 //            ps = connection.prepareStatement("DELETE FROM lista2.disciplinas WHERE disciplinas.id = ?");
 //            ps.setString(1, id);
@@ -89,11 +83,11 @@ public class UpdateDisciplina extends HttpServlet {
                 
                 if(i!=0)
                 {
-                    out.print("{'alterado' : 'true' }");
+                    out.print("{'deletado' : 'true' }");
                 }
                 else if(i==0)
                 {
-                    out.print("{'alterado' : 'false' }");
+                    out.print("{'deletado' : 'false' }");
                 }
             }
             
