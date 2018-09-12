@@ -43,19 +43,19 @@
                     <div class="col-md-2">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Código</label>
-                          <input type="email" class="form-control" id="create_codigo_id">
+                          <input type="text" class="form-control" id="create_codigo_id">
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Nome</label>
-                          <input type="email" class="form-control" id="create_nome">
+                          <input type="text" class="form-control" id="create_nome">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">N. Créditos</label>
-                          <input type="email" class="form-control" id="create_n_creditos">
+                          <input type="text" class="form-control" id="create_n_creditos">
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="save_create">Criar disciplina</button>
+              <button type="button" class="btn btn-primary" id="create_model" onClick="return criarDisciplina()">Criar disciplina</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
           </div>
@@ -103,19 +103,19 @@
                     <div class="col-md-2">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Código</label>
-                          <input type="email" class="form-control" id="edit_codigo_id">
+                          <input type="text" class="form-control" id="edit_codigo_id">
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Nome</label>
-                          <input type="email" class="form-control" id="edit_nome">
+                          <input type="text" class="form-control" id="edit_nome">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                           <label for="exampleFormControlInput1">N. Créditos</label>
-                          <input type="email" class="form-control" id="edit_n_creditos">
+                          <input type="text" class="form-control" id="edit_n_creditos">
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="save_edit">Salvar alterações</button>
+              <button type="button" class="btn btn-primary" id="save_edit" onClick="return updateDisciplina()">Salvar alterações</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
           </div>
@@ -317,6 +317,12 @@
       $.fn.carregarPreRequisitos();
   });
   
+    $(document).on('blur', "input[type=text]", function () {
+       $(this).val(function (_, val) {
+           return val.toUpperCase();
+       });
+   });
+   
   $.fn.carregarDados = function(){
       $.ajax({
         url:"ListarDisciplinas",
@@ -376,6 +382,94 @@
     });
   };
   
+    function criarDisciplina(){
+        
+      $("#alerta").empty();
+        
+      var formData = {
+        'codigo': $("#create_codigo_id").val(),
+        'nome': $("#create_nome").val(),
+        'n_creditos': $("#create_n_creditos").val(),
+        'pre_req_1': $("#create_pre_requisito_id_1 option:selected").val(),
+        'pre_req_2': $("#create_pre_requisito_id_2 option:selected").val()
+      };
+      
+        $.ajax({
+          url:"CriarDisciplina",
+          type: 'POST',
+          data: formData,
+          dataType: "json",
+          async: false,
+          cache: false,
+          timeout: 30000,
+          complete: function(response){
+              
+                obj = eval('(' + response.responseText + ')');
+
+                if(obj.criado !== 'false')
+                {
+                    location.reload();                    
+                }
+                else
+                {
+                    var alerta = '<div class="alert alert-danger alert-dismissible fade show" role="alert">\
+                                    Não foi possível criar essa disciplina.\
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                                        <span aria-hidden="true">&times;</span>\
+                                      </button>\
+                                  </div>';
+
+                    $("#alerta").append(alerta);
+                }     
+            }
+      });
+    };
+    
+    function updateDisciplina(){
+        
+      $("#alerta").empty();
+        
+      var formData = {
+        'id': $("#edit_id").val(),
+        'codigo': $("#edit_codigo_id").val(),
+        'nome': $("#edit_nome").val(),
+        'n_creditos': $("#edit_n_creditos").val(),
+        'pre_req_1': $("#edit_pre_requisito_id_1 option:selected").val(),
+        'pre_req_2': $("#edit_pre_requisito_id_2 option:selected").val()
+      };
+      
+        $.ajax({
+          url:"UpdateDisciplina",
+          type: 'POST',
+          data: formData,
+          dataType: "json",
+          async: false,
+          cache: false,
+          timeout: 30000,
+          complete: function(response){
+              
+                obj = eval('(' + response.responseText + ')');
+
+                if(obj.alterado !== 'false')
+                {
+                    location.reload();
+                    
+                }
+                else
+                {
+                    var alerta = '<div class="alert alert-danger alert-dismissible fade show" role="alert">\
+                                    Não foi possível criar essa disciplina.\
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                                        <span aria-hidden="true">&times;</span>\
+                                      </button>\
+                                  </div>';
+
+                    $("#alerta").append(alerta);
+                }     
+            }
+      });
+    };
+  
     function deletarDisciplina(current){
         
       var formData = {
@@ -417,9 +511,38 @@
   
   function editarDisciplina(current){
         
+      $("#edit_id").empty();
       $("#edit_id").val(current.value);
       
-      console.log($("#edit_id").val());
+      $('#edit_pre_requisito_id_1 option').attr("selected", false);
+      $('#edit_pre_requisito_id_2 option').attr("selected", false);
+      
+      var formData = {
+        'id': current.value
+      };
+      
+      $.ajax({
+        url:"BuscarDisciplina",
+        type: 'GET',
+        data: formData,
+        dataType: "json",
+        async: false,
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            return true;
+        },
+        success: function(response){
+            console.log(response);
+            $("#edit_codigo_id").val(response[0].codigo);
+            $("#edit_nome").val(response[0].nome);
+            $("#edit_n_creditos").val(response[0].n_creditos);
+            $('#edit_pre_requisito_id_1 option[value="'+ response[0].pre_req_1 +'"]').attr("selected", "selected");
+            $('#edit_pre_requisito_id_2 option[value="'+ response[0].pre_req_2 +'"]').attr("selected", "selected");
+        }
+            
+        });
+      
   }
   
   $.fn.carregarPreRequisitos = function(){
